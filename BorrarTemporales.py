@@ -15,7 +15,7 @@ def borrarTemporales(directorio=None, logger=print):
         for nombre in archivos:
             archivo = os.path.join(root,nombre)
             try:
-                #os.remove(archivo)
+                os.remove(archivo)
                 logger(f"Archivo eliminado: {archivo}")
             except PermissionError as e:
                 if(archivoEnUso(e)):
@@ -26,7 +26,7 @@ def borrarTemporales(directorio=None, logger=print):
         for nombre in directorios:
             carpeta = os.path.join(root,nombre)
             try:
-                #os.rmdir(carpeta)
+                os.rmdir(carpeta)
                 logger(f"Carpeta eliminada: {carpeta}")
             except Exception as e:
                 logger(f"Carpeta con permiso denegado: {carpeta}")
