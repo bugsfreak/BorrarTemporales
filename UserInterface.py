@@ -1,6 +1,6 @@
 from BorrarTemporales import borrarTemporales
 import tkinter as tk
-from tkinter import scrolledtext
+from tkinter import scrolledtext, messagebox
 from threading import Thread
 
 
@@ -27,6 +27,7 @@ class UI:
     def ejecutar_borrado(self):
         borrarTemporales(logger=self.log)
         self.log("\nLimpieza completada.")
+        messagebox.showinfo("Finalizado","Limpieza completada")
         self.boton.config(state=tk.NORMAL)
     
     
