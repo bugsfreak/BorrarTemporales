@@ -1,4 +1,7 @@
-import os, shutil, tempfile
+import os, shutil, tempfile, ctypes, errno
+
+def archivoEnUso(exc):
+    return hasattr(exc, 'winerror') and exc.winerror == 32
 
 
 def borrarTemporales(directorio=None):
@@ -12,8 +15,11 @@ def borrarTemporales(directorio=None):
             try:
                 #os.remove(archivo)
                 print("Archivo eliminado: ", archivo)
-            except Exception as e:
-                print("Error: ", e)
+            except PermissionError as e:
+                if(archivoEnUso(e)):
+                    print("Archivo en uso (Omitido): ", archivo)
+                else:
+                    print("Archivo con permiso denegado: ", archivo)
         
         for nombre in directorios:
             carpeta = os.path.join(root,nombre)
@@ -21,7 +27,7 @@ def borrarTemporales(directorio=None):
                 #os.rmdir(carpeta)
                 print("Carpeta eliminada: ", carpeta)
             except Exception as e:
-                print("Error: ",e)
+                print("Carpeta con permiso denegado: ",carpeta)
              
 
 
